@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import SERVER from '../utils.js';
+import Nav from './Nav.js';
+
 
 export default class SiteInfo extends Component {
   constructor() {
@@ -25,6 +27,7 @@ export default class SiteInfo extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <h3>Camp Site Info Coming Soon</h3>
       </div>
     );
