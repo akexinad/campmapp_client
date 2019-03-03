@@ -9,7 +9,7 @@ export default class Nav extends Component {
       <div className="navbar">
         <Link to="/">
           <div className="navbar-links">
-            <h2>CampMapp</h2>
+            <img src="./images/tent-icon.png" alt="tent icon as nav-link"/>
           </div>
         </Link>
       </div>
