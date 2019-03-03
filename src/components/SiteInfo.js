@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
 export default class SiteInfo extends Component {
+  constructor() {
+    super();
+    this.state = {
+
+    }
+  }
+  
   render() {
     return (
       <div>
