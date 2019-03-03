@@ -10,7 +10,7 @@ export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      campSites: {},
+      campSiteData: {},
       ids: [],
       names: [],
       locations: [],
@@ -49,14 +49,14 @@ export default class Home extends Component {
       }
 
       this.setState({
-        campSites: campSites,
+        campSiteData: campSites,
         names: campSiteNames,
         locations: campSiteLocations,
         latitudes: campSiteLatitudes,
         longitudes: campSiteLongitudes,
       })
 
-      console.log(this.state.campSites);
+      console.log(this.state.campSiteData);
     })
     .catch( error => {
       console.error(error);
@@ -66,6 +66,24 @@ export default class Home extends Component {
   // componentWillUnmount() {
   // }
 
+  renderSites() {
+    let children = [];
+    for (let i = 0; i < this.state.campSiteData.length; i++) {
+      // console.log( this.state.campSiteData[ i ].name );
+      // console.log( this.state.campSiteData[ i ].id );
+      // console.log( this.state.campSiteData[ i ].latitude );
+      // console.log( this.state.campSiteData[ i ].longitude );
+
+      children.push(
+        <Sites
+          key={ this.state.campSiteData[ i ].id }
+          lat={ this.state.campSiteData[ i ].latitude }
+          lng={ this.state.campSiteData[ i ].longitude }
+        />
+      )
+    }
+    return children;
+  }
 
   render() {
     return (
@@ -83,11 +101,7 @@ export default class Home extends Component {
           defaultCenter={ this.props.center }
           defaultZoom={ this.props.zoom }
         >
-          <Sites
-            lat={ -34.116484 }
-            lng={ 150.210383 }
-            text={ 'X' }
-          />
+        { this.renderSites() }
         </GoogleMapReact>
       </div>
     );

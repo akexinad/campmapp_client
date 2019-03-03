@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-const Sites = ({ text }) => (
-  <div>
-    {text}
-  </div>
-);
-
-export default Sites;
+export default class Sites extends Component {
+  render() {
+    return (
+      <div>
+        <Link to={ `/details/${ this.props.$dimensionKey }` } >
+          <img src="../../public/tent-icon.png" alt="x" />
+        </Link>
+      </div>
+    );
+  }
+}
