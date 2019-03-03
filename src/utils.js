@@ -1,16 +1,22 @@
 import axios from 'axios';
 
+const SERVER_URL = 'http://localhost:3001/'
+
 const SERVER = {
   getCampSites() {
-    return axios.get('http://localhost:3001/campsites.json');
+    return axios.get(SERVER_URL + 'campsites.json');
+  },
+
+  getCampSite(campSiteId) {
+    return axios.get(SERVER_URL + 'campsites/' + campSiteId + '.json')
   },
 
   getAmenities() {
-    return axios.get('http://localhost:3001/amenities.json');
+    return axios.get(SERVER_URL + 'amenities.json');
   },
 
   getUsers() {
-    return axios.get('http://localhost:3001/users.json');
+    return axios.get(SERVER_URL + 'users.json');
   }
 };
 

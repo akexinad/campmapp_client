@@ -66,13 +66,9 @@ export default class Home extends Component {
   // componentWillUnmount() {
   // }
 
-  renderSites() {
+  renderLocations() {
     let children = [];
     for (let i = 0; i < this.state.campSiteData.length; i++) {
-      // console.log( this.state.campSiteData[ i ].name );
-      // console.log( this.state.campSiteData[ i ].id );
-      // console.log( this.state.campSiteData[ i ].latitude );
-      // console.log( this.state.campSiteData[ i ].longitude );
 
       children.push(
         <Sites
@@ -101,7 +97,7 @@ export default class Home extends Component {
           defaultCenter={ this.props.center }
           defaultZoom={ this.props.zoom }
         >
-        { this.renderSites() }
+        { this.renderLocations() }
         </GoogleMapReact>
       </div>
     );
