@@ -22,13 +22,6 @@ export default class SiteInfo extends Component {
 
       const resultsData = results.data;
 
-      // let amenitiesList = []
-      //
-      // for (var i = 0; i < resultsData.amenities.length; i++) {
-      //   amenitiesList.push(resultsData.amenities[ i ].name)
-      //   amenitiesList.push(resultsData.amen)
-      // }
-
       this.setState({
         campSiteData: resultsData,
         name: resultsData.name,
@@ -49,8 +42,8 @@ export default class SiteInfo extends Component {
       children.push(
         <img
           key={ this.state.amenityData[ i ].id }
-          src={`./images/${ this.state.amenityData[ i ].name }.png`}
-          alt={`${ this.state.amenityData[ i ].name } icon`}
+          src={ `./images/${ this.state.amenityData[ i ].name }.png` }
+          alt={ `${ this.state.amenityData[ i ].name } icon` }
         />
       )
     }
