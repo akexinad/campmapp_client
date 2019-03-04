@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SERVER from '../utils.js';
+// import API from '../api.js'
 import Nav from './Nav.js';
 import GoogleMapReact from 'google-map-react';
 import Sites from './Sites.js';
@@ -10,6 +11,7 @@ export default class Home extends Component {
   constructor() {
     super();
     this.state = {
+      api: null,
       campSiteData: {},
       ids: [],
       names: [],
@@ -55,8 +57,6 @@ export default class Home extends Component {
         latitudes: campSiteLatitudes,
         longitudes: campSiteLongitudes,
       })
-
-      console.log(this.state.campSiteData);
     })
     .catch( error => {
       console.error(error);
