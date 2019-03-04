@@ -13,10 +13,15 @@ code {
     monospace;
 }
 
+/* Nav.js COMPONENT ////////////////////////////////////////// */
+
 .home-icon {
   max-height: 3em;
 }
 
+/* Home.js COMPONENT /////////////////////////////////////////// */
 .tent {
   max-height: 2em;
 }
+
+/* ShowCampSite.js COMPONENT ////////////////////////////////// */

@@ -3,14 +3,15 @@ import SERVER from '../utils.js';
 import Nav from './Nav.js';
 
 
-export default class SiteInfo extends Component {
+export default class ShowCampSite extends Component {
   constructor() {
     super();
     this.state = {
       campSiteData: {},
-      amenityData: {},
       name: null,
       location: null,
+      amenityData: {},
+      photoData: {},
     }
   }
 
@@ -27,6 +28,7 @@ export default class SiteInfo extends Component {
         name: resultsData.name,
         location: resultsData.location,
         amenityData: resultsData.amenities,
+        photoData: resultsData.photos
       })
 
     })
@@ -36,10 +38,10 @@ export default class SiteInfo extends Component {
   }
 
   renderAmenityIcons() {
-    let children = [];
+    let icons = [];
     for (var i = 0; i < this.state.amenityData.length; i++) {
 
-      children.push(
+      icons.push(
         <img
           key={ this.state.amenityData[ i ].id }
           src={ `./images/${ this.state.amenityData[ i ].name }.png` }
@@ -47,7 +49,22 @@ export default class SiteInfo extends Component {
         />
       )
     }
-    return children;
+    return icons;
+  }
+
+  renderCampSitePhotos() {
+    let photos = [];
+    for (let i = 0; i < this.state.photoData.length; i++) {
+
+      photos.push(
+        <img
+          key={ this.state.photoData[ i ].id }
+          src={ this.state.photoData[ i ].title }
+          alt="Camp Site"
+        />
+      )
+    }
+    return photos;
   }
 
   render() {
@@ -57,8 +74,11 @@ export default class SiteInfo extends Component {
         <h2>{ this.state.campSiteData.name }</h2>
         <h3>{ this.state.location }</h3>
         <h3>Amenities</h3>
-        <div>
+        <div className="amenity-container">
           { this.renderAmenityIcons() }
+        </div>
+        <div className="photo-container">
+          { this.renderCampSitePhotos() }
         </div>
       </div>
     );
