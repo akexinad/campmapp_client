@@ -7,7 +7,7 @@ export default class Nav extends Component {
   render() {
     return (
       <div className="navbar">
-        <Link to="/">
+        <Link to="/home">
           <div className="navbar-links">
             <img
               className="home-icon"

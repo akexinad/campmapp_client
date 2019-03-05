@@ -16,9 +16,10 @@ export default class ShowCampSite extends Component {
   }
 
   componentDidMount() {
+
     const campSiteId = this.props.match.params.id;
 
-    SERVER.getCampSite(campSiteId)
+    SERVER.authoriseShowCampSite(campSiteId)
     .then( results => {
 
       const resultsData = results.data;
@@ -59,7 +60,7 @@ export default class ShowCampSite extends Component {
       photos.push(
         <img
           key={ this.state.photoData[ i ].id }
-          src={ this.state.photoData[ i ].title }
+          src={ this.state.photoData[ i ].url }
           alt="Camp Site"
         />
       )
