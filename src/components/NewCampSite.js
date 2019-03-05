@@ -17,8 +17,10 @@ export default class NewCampSite extends Component {
       campSiteData: {},
       newSiteName: null,
       newSitelocation: null,
-      latitude: null,
-      longitude: null,
+      latitude: [],
+      longitude: [],
+      newLatitude: null,
+      newLongitude: [],
     }
     this._addTinyTent = this._addTinyTent.bind(this);
   }
@@ -88,13 +90,15 @@ export default class NewCampSite extends Component {
   }
 
   _addTinyTent(e) {
-    const newLat = e.lat;
-    const newLng = e.lng;
+    let newLat = e.lat;
+    let newLng = e.lng;
 
     this.setState({
-      latitude: newLat,
-      longitude: newLng,
+      newLatitude: newLat,
+      newLongitude: newLng,
     });
+
+    console.log(this.state.newLatitude, this.state.newLongitude);
   }
 
   renderNewLocation() {
@@ -106,12 +110,18 @@ export default class NewCampSite extends Component {
       children.push(
         <Sites
           key="bevin"
-          lat={ this.state.latitude }
-          lng={ this.state.longitude }
+          lat={ this.state.newLatitude }
+          lng={ this.state.newLongitude }
         />
       )
+      console.log(this.state.newLatitude, this.state.newLongitude);
+
       return children
     }
+  }
+
+  addLocation(details) {
+
   }
 
   render() {
@@ -125,6 +135,7 @@ export default class NewCampSite extends Component {
       >
         <Nav />
         <h2>You can add your own Camp Sites Very Soon!</h2>
+        <AddCampSiteForm onSubmit={ this.addLocation } />
         <GoogleMapReact
           bootstrapURLKeys={{ key: API.key }}
           defaultCenter={ this.props.center }
@@ -138,3 +149,66 @@ export default class NewCampSite extends Component {
     )
   }
 }
+
+class AddCampSiteForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+      location: "",
+      amenities: [],
+    }
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleChange = this._handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    SERVER.authoriseGetAmenities()
+    .then( results => {
+      console.log(results);
+    })
+  }
+
+  _handleSubmit(e) {
+
+  }
+
+  _handleChange(e) {
+
+  }
+
+  render() {
+    return (
+      <form onSubmit={ this._handleSubmit } >
+
+        <div className="form-group">
+          <label>Give it a Name!</label>
+          <input
+            type="text"
+            name="name"
+            value={ this.state.name }
+            onChange={this._handleChange}
+          />
+
+          <label>Where</label>
+          <input
+            type="text"
+            name="location"
+            value={ this.state.location }
+            onChange={this._handleChange}
+          />
+        </div>
+
+        <input type="submit" value="Pitch A Tent!" />
+
+      </form>
+    )
+  }
+}
+
+
+
+
+
+// <textarea onChange={ this._handleChange } value={ this.state.name }></textarea>
+// <textarea onChange={ this._handleChange } value={ this.state.location }></textarea>

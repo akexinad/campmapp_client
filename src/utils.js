@@ -42,6 +42,18 @@ const SERVER = {
       }
     }
     return axios.get(serverURL + 'campsites/' + campSiteId + '.json', axiosConfig);
+  },
+
+  authoriseGetAmenities() {
+    let token = localStorage.getItem("auth-token");
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        "Authorization" : `Bearer ${token}`
+      }
+    }
+    return axios.get(serverURL + 'amenities.json', axiosConfig);
   }
 
 };
