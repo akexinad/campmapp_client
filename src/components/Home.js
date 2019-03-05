@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import SERVER from '../utils.js';
-// import API from '../api.js'
-import axios from 'axios';
-import Nav from './Nav.js';
 import GoogleMapReact from 'google-map-react';
+
+import API from '../api.js';
+import SERVER from '../utils.js';
+
+import Nav from './Nav.js';
 import Sites from './Sites.js';
 
 import '../App.css';
@@ -101,18 +102,6 @@ export default class Home extends Component {
     // })
   }
 
-  renderMapLocations(props) {
-    let token = localStorage.getItem("auth-token");
-    let axiosConfig = {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        "Access-Control-Allow-Origin": "*",
-        "Authorization" : `Bearer ${token}`
-      }
-    };
-    axios.get('http://localhost:4444/users', axiosConfig)
-  }
-
   // componentWillUnmount() {
   // }
 
@@ -142,9 +131,8 @@ export default class Home extends Component {
       >
         <Nav />
         <h2>HOME COMPONENT</h2>
-        <h3>Hello { this.state.username }</h3>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBhZ3J2771KPwnoP287p1_b640KMp7hJwY' }}
+          bootstrapURLKeys={{ key: API.key }}
           defaultCenter={ this.props.center }
           defaultZoom={ this.props.zoom }
         >
@@ -154,3 +142,7 @@ export default class Home extends Component {
     );
   }
 }
+
+// bootstrapURLKeys={{ key: API.key }}
+
+// bootstrapURLKeys={{ key: 'AIzaSyBhZ3J2771KPwnoP287p1_b640KMp7hJwY' }}

@@ -7,7 +7,7 @@ export default class Nav extends Component {
   render() {
     return (
       <div className="navbar">
-        <Link to="/home">
+        <Link to="/">
           <div className="navbar-links">
             <img
               className="home-icon"
@@ -16,6 +16,9 @@ export default class Nav extends Component {
             />
           </div>
         </Link>
+        <div>
+          <h3>Hello { JSON.parse(localStorage.getItem("current-user")).username }</h3>
+        </div>
       </div>
     )
   }
