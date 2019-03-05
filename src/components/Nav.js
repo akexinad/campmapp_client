@@ -19,6 +19,11 @@ export default class Nav extends Component {
         <div>
           <h3>Hello { JSON.parse(localStorage.getItem("current-user")).username }</h3>
         </div>
+        <div>
+          <Link to="/new">
+            <h3>New Place?</h3>
+          </Link>
+        </div>
       </div>
     )
   }
