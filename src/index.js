@@ -12,8 +12,8 @@ import './index.css';
 const Routes = (
   <Router>
     <div>
-      <Route exact path="/" component={ Home } />
-      <Route exact path="/login" component={ Login } />
+      <Route exact path="/home" component={ Home } />
+      <Route exact path="/" component={ Login } />
       <Route path="/details/:id" component={ ShowCampSite } />
       <Route exact path="/new" component={ NewCampSite }/>
     </div>

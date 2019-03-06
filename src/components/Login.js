@@ -59,7 +59,7 @@ export default class Login extends Component {
       let user = JSON.stringify(results.data);
       console.log(user);
       localStorage.setItem("current-user", user);
-      this.props.history.push("/");
+      this.props.history.push("/home");
     })
   }
 

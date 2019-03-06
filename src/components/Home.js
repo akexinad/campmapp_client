@@ -63,16 +63,15 @@ export default class Home extends Component {
       console.error(error);
     })
 
-    let username = JSON.parse(localStorage.getItem("current-user")).username;
 
-    if (!username) {
-      return null
-    } else {
+    if (localStorage.getItem("current-user")) {
+      let username = JSON.parse(localStorage.getItem("current-user")).username;
       this.setState({
         username: username
       })
+    } else {
+      return null;
     }
-    
   }
 
   // componentWillUnmount() {
