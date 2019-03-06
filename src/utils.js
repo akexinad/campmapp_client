@@ -4,6 +4,14 @@ import axios from 'axios';
 const serverURL = 'http://localhost:4444/';
 
 const SERVER = {
+  user() {
+    return serverURL + 'user';
+  },
+
+  userToken() {
+    return serverURL + 'user_token';
+  },
+
   getCampSites() {
     return axios.get(serverURL + 'campsites.json');
   },

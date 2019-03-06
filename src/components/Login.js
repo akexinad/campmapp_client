@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import SERVER from '../utils.js';
 
 export default class Login extends Component {
   constructor() {
@@ -20,8 +21,8 @@ export default class Login extends Component {
         "Authorisation" : `Bearer ${ token }`
       }
     };
-    let url = 'http://localhost:4444/user_token'
-    axios.post(url, {
+    // let url = 'http://localhost:4444/user_token'
+    axios.post(SERVER.userToken(), {
       auth: {
         email: e.email,
         password: e.password
@@ -38,7 +39,7 @@ export default class Login extends Component {
 
   saverUserToLocal = (e) => {
     let token = localStorage.getItem('auth-token');
-    let url = 'http://localhost:4444/user';
+    // let url = 'http://localhost:4444/user';
     let axiosConfig = {
       headers: {
           'Content-Type': 'application/json;charset=UTF-8',
@@ -51,7 +52,7 @@ export default class Login extends Component {
         "email": e.email
       }
     }
-    axios.get(url, params, axiosConfig)
+    axios.get(SERVER.user(), params, axiosConfig)
     .then( results => {
       let user = JSON.stringify(results.data);
       console.log(user);
