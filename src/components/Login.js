@@ -47,11 +47,13 @@ export default class Login extends Component {
           "Authorization" : `Bearer ${token}`
       }
     }
+
     let params = {
       params: {
         "email": e.email
       }
     }
+
     axios.get(SERVER.user(), params, axiosConfig)
     .then( results => {
       let user = JSON.stringify(results.data);
