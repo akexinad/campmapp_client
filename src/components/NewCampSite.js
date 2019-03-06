@@ -15,6 +15,7 @@ export default class NewCampSite extends Component {
     this.state = {
       username: null,
       campSiteData: {},
+      amenityData: {},
       newSiteName: null,
       newSitelocation: null,
       latitude: [],
@@ -62,10 +63,17 @@ export default class NewCampSite extends Component {
         longitudes: campSiteLongitudes,
       })
 
-      console.log(this.state.campSiteData);
+      // console.log(this.state.campSiteData);
     })
     .catch( error => {
       console.error(error);
+    })
+
+    SERVER.authoriseGetAmenities()
+    .then( results => {
+      this.setState({
+        amenityData: results.data
+      })
     })
 
     let username = JSON.parse(localStorage.getItem("current-user")).username;
@@ -114,7 +122,7 @@ export default class NewCampSite extends Component {
           lng={ this.state.newLongitude }
         />
       )
-      console.log(this.state.newLatitude, this.state.newLongitude);
+      // console.log(this.state.newLatitude, this.state.newLongitude);
 
       return children
     }
@@ -135,7 +143,10 @@ export default class NewCampSite extends Component {
       >
         <Nav />
         <h2>You can add your own Camp Sites Very Soon!</h2>
-        <AddCampSiteForm onSubmit={ this.addLocation } />
+        <AddCampSiteForm
+          onSubmit={ this.addLocation }
+          amenityData={ this.state.amenityData }
+        />
         <GoogleMapReact
           bootstrapURLKeys={{ key: API.key }}
           defaultCenter={ this.props.center }
@@ -156,17 +167,17 @@ class AddCampSiteForm extends Component {
     this.state = {
       name: "",
       location: "",
-      amenities: [],
+      bbq: false,
+      toilet: false,
+      shower: false,
+      kitchen: false,
+      laundry: false,
+      water: false,
+      electricity: false,
     }
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleChange = this._handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    SERVER.authoriseGetAmenities()
-    .then( results => {
-      console.log(results);
-    })
+    this._handleCheckbox = this._handleCheckbox.bind(this);
   }
 
   _handleSubmit(e) {
@@ -174,7 +185,48 @@ class AddCampSiteForm extends Component {
   }
 
   _handleChange(e) {
+    console.log(e);
+    this.setState ({
+      [e.target.name] : e.target.value,
+    })
+  }
 
+  _handleCheckbox(e) {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      this.setState ({
+        [e.target.name] : true
+      })
+    } else {
+      this.setState ({
+        [e.target.name] : false
+      })
+    }
+
+  }
+
+  renderAmenityChecklist() {
+    console.log(this.props.amenityData);
+
+    let children = [];
+
+    for (let i = 0; i < this.props.amenityData.length; i++) {
+      children.push(
+
+        <label key={ this.props.amenityData[i].id } >
+
+          { this.props.amenityData[i].name }
+
+          <input
+            type="checkbox"
+            name={ this.props.amenityData[ i ].name }
+            onChange={ this._handleCheckbox }
+          />
+
+        </label>
+      )
+    }
+    return children;
   }
 
   render() {
@@ -182,7 +234,8 @@ class AddCampSiteForm extends Component {
       <form onSubmit={ this._handleSubmit } >
 
         <div className="form-group">
-          <label>Give it a Name!</label>
+
+          <label>Camp Site Name</label>
           <input
             type="text"
             name="name"
@@ -190,13 +243,18 @@ class AddCampSiteForm extends Component {
             onChange={this._handleChange}
           />
 
-          <label>Where</label>
+          <label>Where?</label>
           <input
             type="text"
             name="location"
             value={ this.state.location }
             onChange={this._handleChange}
           />
+        </div>
+
+        <div>
+          <h3>Amenities Available</h3>
+          { this.renderAmenityChecklist() }
         </div>
 
         <input type="submit" value="Pitch A Tent!" />
@@ -210,5 +268,40 @@ class AddCampSiteForm extends Component {
 
 
 
-// <textarea onChange={ this._handleChange } value={ this.state.name }></textarea>
-// <textarea onChange={ this._handleChange } value={ this.state.location }></textarea>
+
+
+// <div>
+//   <h3>Amenities Available</h3>
+//   <label>
+//     BBQ
+//     <input
+//       type="checkbox"
+//       name="bbq"
+//       value={ this.state.amenities.bbq }
+//       onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Toilet
+//     <input type="checkbox" value="toilet" onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Shower
+//     <input type="checkbox" value="shower" onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Kitchen
+//     <input type="checkbox" value="kitchen" onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Laundry
+//     <input type="checkbox" value="laundry" onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Drinking Water
+//     <input type="checkbox" value="drinkingWater" onChange={ this._handleCheckbox } />
+//   </label>
+//   <label>
+//     Electricity
+//     <input type="checkbox" value="electricity" onChange={ this._handleCheckbox } />
+//   </label>
+// </div>
