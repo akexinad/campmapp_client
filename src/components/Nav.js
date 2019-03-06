@@ -17,7 +17,7 @@ export default class Nav extends Component {
           </div>
         </Link>
         <div>
-          <h3>Hello { JSON.parse(localStorage.getItem("current-user")).username }</h3>
+          <h3>Hello { JSON.parse(localStorage.getItem("current-user")) ? JSON.parse(localStorage.getItem("current-user")).username : "null" }</h3>
         </div>
         <div>
           <Link to="/new">
