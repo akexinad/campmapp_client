@@ -16,14 +16,16 @@ export default class NewCampSite extends Component {
       username: null,
       campSiteData: {},
       amenityData: {},
+      amenityList: [],
       newSiteName: null,
       newSitelocation: null,
       latitude: [],
       longitude: [],
       newLatitude: null,
-      newLongitude: [],
+      newLongitude: null,
     }
     this._addTinyTent = this._addTinyTent.bind(this);
+    this.postLocationToServer = this.postLocationToServer.bind(this);
   }
 
   /* google-map-react documentation suggests this syntax to pass down the default props to the Google Map component */
@@ -63,7 +65,6 @@ export default class NewCampSite extends Component {
         longitudes: campSiteLongitudes,
       })
 
-      // console.log(this.state.campSiteData);
     })
     .catch( error => {
       console.error(error);
@@ -117,20 +118,38 @@ export default class NewCampSite extends Component {
     } else {
       children.push(
         <Sites
-          key="bevin"
+          key="newAddition"
           lat={ this.state.newLatitude }
           lng={ this.state.newLongitude }
         />
       )
-      // console.log(this.state.newLatitude, this.state.newLongitude);
 
       return children
     }
   }
 
-  addLocation(details) {
+
+  postLocationToServer(details) {
+    console.log(details.name);
+    console.log(details.location);
+    console.log(this.state.amenityList);
+    console.log(this.state.newLongitude);
+    console.log(this.state.newLatitude);
+
+    const newCampSite = {
+      name: details.name,
+      location: details.location,
+      latitude: this.state.newLatitude,
+      longitude: this.state.newLongitude,
+      cost: null,
+    };
+
+    SERVER.postCampSite(newCampSite).then( results => {
+      console.log(results);
+    })
 
   }
+
 
   render() {
     return (
@@ -144,8 +163,11 @@ export default class NewCampSite extends Component {
         <Nav />
         <h2>You can add your own Camp Sites Very Soon!</h2>
         <AddCampSiteForm
-          onSubmit={ this.addLocation }
+          onSubmit={ this.postLocationToServer }
           amenityData={ this.state.amenityData }
+          amenityList={ this.state.amenityList }
+          newName={ this.state.newSiteName }
+          newLocation={ this.state.newSitelocation }
         />
         <GoogleMapReact
           bootstrapURLKeys={{ key: API.key }}
@@ -181,32 +203,37 @@ class AddCampSiteForm extends Component {
   }
 
   _handleSubmit(e) {
-
+    e.preventDefault();
+    this.props.onSubmit(this.state);
   }
 
   _handleChange(e) {
-    console.log(e);
     this.setState ({
       [e.target.name] : e.target.value,
     })
+
   }
 
   _handleCheckbox(e) {
-    console.log(e.target.checked);
+
     if (e.target.checked) {
       this.setState ({
-        [e.target.name] : true
+          [e.target.name] : true
       })
+
+      this.props.amenityList.push(e.target.name);
+
     } else {
       this.setState ({
-        [e.target.name] : false
+          [e.target.name] : false
       })
+
+      this.props.amenityList.splice( this.props.amenityList.indexOf(e.target.name), 1 );
     }
 
   }
 
   renderAmenityChecklist() {
-    console.log(this.props.amenityData);
 
     let children = [];
 
@@ -214,16 +241,14 @@ class AddCampSiteForm extends Component {
       children.push(
 
         <label key={ this.props.amenityData[i].id } >
-
           { this.props.amenityData[i].name }
-
           <input
             type="checkbox"
             name={ this.props.amenityData[ i ].name }
             onChange={ this._handleCheckbox }
           />
-
         </label>
+
       )
     }
     return children;
@@ -263,45 +288,3 @@ class AddCampSiteForm extends Component {
     )
   }
 }
-
-
-
-
-
-
-
-// <div>
-//   <h3>Amenities Available</h3>
-//   <label>
-//     BBQ
-//     <input
-//       type="checkbox"
-//       name="bbq"
-//       value={ this.state.amenities.bbq }
-//       onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Toilet
-//     <input type="checkbox" value="toilet" onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Shower
-//     <input type="checkbox" value="shower" onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Kitchen
-//     <input type="checkbox" value="kitchen" onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Laundry
-//     <input type="checkbox" value="laundry" onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Drinking Water
-//     <input type="checkbox" value="drinkingWater" onChange={ this._handleCheckbox } />
-//   </label>
-//   <label>
-//     Electricity
-//     <input type="checkbox" value="electricity" onChange={ this._handleCheckbox } />
-//   </label>
-// </div>

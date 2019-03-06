@@ -12,6 +12,19 @@ const SERVER = {
     return axios.get(serverURL + 'campsites/' + campSiteId + '.json')
   },
 
+  postCampSite(newCampSite) {
+    let token = localStorage.getItem("auth-token");
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        "Authorization" : `Bearer ${token}`
+      }
+    }
+
+    return axios.post(serverURL + 'campsites.json', { campsite: newCampSite }, axiosConfig);
+  },
+
   getAmenities() {
     return axios.get(serverURL + 'amenities.json');
   },
@@ -29,6 +42,7 @@ const SERVER = {
         "Authorization" : `Bearer ${token}`
       }
     }
+
     return axios.get(serverURL + 'campsites.json', axiosConfig);
   },
 
