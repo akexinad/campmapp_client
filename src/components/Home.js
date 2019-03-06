@@ -64,9 +64,15 @@ export default class Home extends Component {
     })
 
     let username = JSON.parse(localStorage.getItem("current-user")).username;
-    this.setState({
-      username: username
-    })
+
+    if (!username) {
+      return null
+    } else {
+      this.setState({
+        username: username
+      })
+    }
+    
   }
 
   // componentWillUnmount() {
