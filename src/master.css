@@ -17,13 +17,14 @@ code {
     monospace;
 }
 
-.container {
+
+/* Login.js COMPONENT ///////////////////////////////////////// */
+
+.login-container {
   max-width: 960px;
   margin: 0 auto;
   min-height: 150vh;
 }
-
-/* Login.js COMPONENT ///////////////////////////////////////// */
 
 .login-title {
   font-size: 5em;

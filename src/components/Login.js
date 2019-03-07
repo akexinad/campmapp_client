@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Spring } from 'react-spring/renderprops';
+import { Transition, animated } from 'react-spring/renderprops';
+
 import axios from 'axios';
 import SERVER from '../utils.js';
 
@@ -64,9 +67,26 @@ export default class Login extends Component {
   }
 
   render() {
-    let state = <LoginForm onSubmit={ this._handleSubmit } />;
     return (
-      state
+      <Spring
+        from={{
+          opacity: 0,
+          marginTop: -500,
+        }}
+        to={{
+          opacity: 1,
+          marginTop: 0,
+        }}
+        config={{
+          duration: 1000
+        }}
+      >
+        { props => (
+          <div style={ props }>
+            <LoginForm onSubmit={ this._handleSubmit } />;
+          </div>
+        )}
+      </Spring>
     );
   }
 }
@@ -78,7 +98,8 @@ class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
-      isLoggedIn: false
+      isLoggedIn: false,
+      showLoginForm: true,
     }
   }
 
@@ -91,45 +112,66 @@ class LoginForm extends Component {
     this.props.onSubmit(this.state);
   }
 
+  fadeOut = (e) => {
+    this.setState({
+      showLoginForm: !this.state.showLoginForm,
+    })
+  }
+
+
 
   render() {
     return(
-      <div className="container">
-        <h2 className="login-title">CampMapp</h2>
-        <img
-          className="login-image"
-          src="./images/login-tent-icon.png"
-          alt="Tiny Tent"
-        />
-        <form
-          className="login-form"
-          onSubmit={ this._handleSubmit }
+
+      <Transition
+          native
+          items={ this.state.showLoginForm }
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
         >
-        <h3 className="login-sub-heading">Login</h3>
-          <input
-            className="login-input"
-            placeholder="Email"
-            name="email"
-            required
-            onInput={ this._handleInputs }
-          />
-          <input
-            className="login-input"
-            placeholder="Password"
-            name="password"
-            type="password"
-            required
-            onInput={ this._handleInputs }
-            protected="true"
-          />
-          <input
-            className="submit-btn"
-            id="submit"
-            type="submit"
-            value="Submit"
-          />
-        </form>
-      </div>
+          { show => show && (props => (
+            <animated.div style={props}>
+              <div className="login-container">
+                <h2 className="login-title">CampMapp</h2>
+                <img
+                  className="login-image"
+                  src="./images/login-tent-icon.png"
+                  alt="Tiny Tent"
+                />
+                <form
+                  className="login-form"
+                  onSubmit={ this._handleSubmit }
+                >
+                <h3 className="login-sub-heading">Login</h3>
+                  <input
+                    className="login-input"
+                    placeholder="Email"
+                    name="email"
+                    required
+                    onInput={ this._handleInputs }
+                  />
+                  <input
+                    className="login-input"
+                    placeholder="Password"
+                    name="password"
+                    type="password"
+                    required
+                    onInput={ this._handleInputs }
+                    protected="true"
+                  />
+                  <input
+                    className="submit-btn"
+                    id="submit"
+                    type="submit"
+                    value="Submit"
+                    onClick={ this.fadeOut }
+                  />
+                </form>
+              </div>
+            </animated.div>
+          ))}
+        </Transition>
     );
   }
 }

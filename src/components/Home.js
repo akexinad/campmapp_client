@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+
 import API from '../api.js';
 import SERVER from '../utils.js';
 
@@ -94,24 +95,29 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div
-        className="home-page"
-        style={{
-          height: '150vh',
-          width: '960px',
-          margin: '0 auto',
-          borderRadius: '20px'
-        }}
-      >
+
+      <div>
         <Nav />
-        <h2 className="home-title">Pick Your Spot!</h2>
-        <GoogleMapReact
-          defaultCenter={ this.props.center }
-          defaultZoom={ this.props.zoom }
+        <div
+          className="home-page"
+          style={{
+            height: '150vh',
+            width: '960px',
+            margin: '0 auto',
+            borderRadius: '20px'
+          }}
         >
-        { this.renderLocations() }
-        </GoogleMapReact>
+          <h2 className="home-title">Pick Your Spot!</h2>
+          <GoogleMapReact
+            defaultCenter={ this.props.center }
+            defaultZoom={ this.props.zoom }
+          >
+          { this.renderLocations() }
+          </GoogleMapReact>
+        </div>
       </div>
+
+
     );
   }
 }
