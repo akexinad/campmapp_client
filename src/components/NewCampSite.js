@@ -143,22 +143,23 @@ export default class NewCampSite extends Component {
     SERVER.postCampSite(newCampSite)
     .then( results => {
       console.log(results);
-    });
-
-    SERVER.getCampSites()
-    .then( results => {
-
-      let newId = (results.data[results.data.length - 1].id);
-      console.log(results.data);
-      console.log(newId);
-
-      this.setState({
-        newCampSiteId: newId,
-      })
-
-      this.renderNewLocation();
-      this.props.history.push(`/details/${ this.state.newCampSiteId }`)
     })
+    .then(
+      SERVER.getCampSites()
+      .then( results => {
+
+        let newId = (results.data[results.data.length - 1].id);
+        console.log(results.data);
+        console.log(newId);
+
+        this.setState({
+          newCampSiteId: newId,
+        })
+
+        this.renderNewLocation();
+        this.props.history.push(`/details/${ this.state.newCampSiteId }`)
+      })
+    )
   }
 
 
