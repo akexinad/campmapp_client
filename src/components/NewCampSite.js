@@ -148,7 +148,7 @@ export default class NewCampSite extends Component {
     SERVER.getCampSites()
     .then( results => {
 
-      let newId = (results.data[results.data.length - 1].id);
+      let newId = (results.data[(results.data.length - 1) + 1].id);
 
       this.setState({
         newCampSiteId: newId,
