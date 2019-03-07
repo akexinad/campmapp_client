@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import '../App.css';
+import '../master.css';
 
 export default class Nav extends Component {
 
@@ -13,22 +13,27 @@ export default class Nav extends Component {
   render() {
     return (
       <div className="navbar">
-        <Link to="/home">
-          <div className="navbar-links">
+        <div className="nav-new-place">
+          <Link
+            className="link"
+            to="/new"
+          >
+            <h3 className="new-place-link">Add A New Place!</h3>
+          </Link>
+        </div>
+        <div className="nav-home">
+          <Link
+            to="/home"
+          >
             <img
               className="home-icon"
               src="./images/tent-icon.png"
               alt="tent icon as nav-link"
-            />
-          </div>
-        </Link>
-        <div>
-          <h3>Hello { JSON.parse(localStorage.getItem("current-user")) ? JSON.parse(localStorage.getItem("current-user")).username : "null" }</h3>
-        </div>
-        <div>
-          <Link to="/new">
-            <h3>New Place?</h3>
+              />
           </Link>
+        </div>
+        <div className="welcome">
+          <h3 className="welcome-text" >Welcome Back { JSON.parse(localStorage.getItem("current-user")) ? JSON.parse(localStorage.getItem("current-user")).username : "null" }!</h3>
         </div>
       </div>
     )

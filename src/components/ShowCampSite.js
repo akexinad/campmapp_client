@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SERVER from '../utils.js';
 import Nav from './Nav.js';
 
+import '../master.css';
 
 export default class ShowCampSite extends Component {
   constructor() {

@@ -7,7 +7,7 @@ import SERVER from '../utils.js';
 import Nav from './Nav.js';
 import Sites from './Sites.js';
 
-import '../App.css';
+import '../master.css';
 
 export default class NewCampSite extends Component {
   constructor() {

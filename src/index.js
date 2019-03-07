@@ -7,7 +7,7 @@ import Home from './components/Home.js';
 import ShowCampSite from './components/ShowCampSite.js';
 import NewCampSite from './components/NewCampSite.js';
 
-import './index.css';
+import './master.css';
 
 const Routes = (
   <Router>

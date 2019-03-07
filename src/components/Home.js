@@ -7,7 +7,7 @@ import SERVER from '../utils.js';
 import Nav from './Nav.js';
 import Sites from './Sites.js';
 
-import '../App.css';
+import '../master.css';
 
 export default class Home extends Component {
   constructor() {
@@ -97,14 +97,15 @@ export default class Home extends Component {
       <div
         className="home-page"
         style={{
-          height: '100vh',
-          width: '100%',
+          height: '150vh',
+          width: '960px',
+          margin: '0 auto',
+          borderRadius: '20px'
         }}
       >
         <Nav />
-        <h2>HOME COMPONENT</h2>
+        <h2 className="home-title">Pick Your Spot!</h2>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: API.key }}
           defaultCenter={ this.props.center }
           defaultZoom={ this.props.zoom }
         >
@@ -114,3 +115,7 @@ export default class Home extends Component {
     );
   }
 }
+
+
+
+// bootstrapURLKeys={{ key: API.key }}

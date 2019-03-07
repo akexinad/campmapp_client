@@ -94,16 +94,27 @@ class LoginForm extends Component {
 
   render() {
     return(
-      <div>
-        <form onSubmit={ this._handleSubmit }>
-        <h2>Login</h2>
+      <div className="container">
+        <h2 className="login-title">CampMapp</h2>
+        <img
+          className="login-image"
+          src="./images/login-tent-icon.png"
+          alt="Tiny Tent"
+        />
+        <form
+          className="login-form"
+          onSubmit={ this._handleSubmit }
+        >
+        <h3 className="login-sub-heading">Login</h3>
           <input
+            className="login-input"
             placeholder="Email"
             name="email"
             required
             onInput={ this._handleInputs }
           />
           <input
+            className="login-input"
             placeholder="Password"
             name="password"
             type="password"
@@ -112,6 +123,7 @@ class LoginForm extends Component {
             protected="true"
           />
           <input
+            className="submit-btn"
             id="submit"
             type="submit"
             value="Submit"
