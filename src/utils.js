@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const serverURL = 'https://campmapp.herokuapp.com/';
-const serverURL = 'http://localhost:4444/';
+const serverURL = 'https://campmapp.herokuapp.com/';
+// const serverURL = 'http://localhost:4444/';
 
 const SERVER = {
   user() {
