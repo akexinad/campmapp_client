@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SERVER from '../utils.js';
 import Nav from './Nav.js';
+import { Spring } from 'react-spring/renderprops';
+
 
 import '../master.css';
 
@@ -45,6 +47,7 @@ export default class ShowCampSite extends Component {
 
       icons.push(
         <img
+          className="amenity-icon"
           key={ this.state.amenityData[ i ].id }
           src={ `./images/${ this.state.amenityData[ i ].name }.png` }
           alt={ `${ this.state.amenityData[ i ].name } icon` }
@@ -60,6 +63,7 @@ export default class ShowCampSite extends Component {
 
       photos.push(
         <img
+          className="campsite-img"
           key={ this.state.photoData[ i ].id }
           src={ this.state.photoData[ i ].url }
           alt="Camp Site"
@@ -71,18 +75,35 @@ export default class ShowCampSite extends Component {
 
   render() {
     return (
-      <div>
-        <Nav />
-        <h2>{ this.state.campSiteData.name }</h2>
-        <h3>{ this.state.location }</h3>
-        <h3>Amenities</h3>
-        <div className="amenity-container">
-          { this.renderAmenityIcons() }
-        </div>
-        <div className="photo-container">
-          { this.renderCampSitePhotos() }
-        </div>
-      </div>
+
+      <Spring
+        from={{
+          opacity: 0,
+        }}
+        to={{
+          opacity: 1,
+        }}
+        config={{
+          duration: 2000,
+        }}
+      >
+        { props => (
+          <div style={ props }>
+            <Nav />
+            <div className="show-page-container">
+              <h2 className="show-page-heading" >{ this.state.campSiteData.name }</h2>
+              <h3 className="show-page-subheading">{ this.state.location }</h3>
+              <h3 className="amenities-title">Amenities</h3>
+              <div className="amenities-container">
+                { this.renderAmenityIcons() }
+              </div>
+              <div className="photo-container">
+                { this.renderCampSitePhotos() }
+              </div>
+            </div>
+          </div>
+        ) }
+      </Spring>
     );
   }
 }

@@ -118,60 +118,57 @@ class LoginForm extends Component {
     })
   }
 
-
-
   render() {
     return(
-
       <Transition
-          native
-          items={ this.state.showLoginForm }
-          from={{ opacity: 0 }}
-          enter={{ opacity: 1 }}
-          leave={{ opacity: 0 }}
-        >
-          { show => show && (props => (
-            <animated.div style={props}>
-              <div className="login-container">
-                <h2 className="login-title">CampMapp</h2>
-                <img
-                  className="login-image"
-                  src="./images/login-tent-icon.png"
-                  alt="Tiny Tent"
+        native
+        items={ this.state.showLoginForm }
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+      >
+        { show => show && (props => (
+          <animated.div style={props}>
+            <div className="login-container">
+              <h2 className="login-title">CampMapp</h2>
+              <img
+                className="login-image"
+                src="./images/login-tent-icon.png"
+                alt="Tiny Tent"
+              />
+              <form
+                className="login-form"
+                onSubmit={ this._handleSubmit }
+              >
+              <h3 className="login-sub-heading">Login</h3>
+                <input
+                  className="login-input"
+                  placeholder="Email"
+                  name="email"
+                  required
+                  onInput={ this._handleInputs }
                 />
-                <form
-                  className="login-form"
-                  onSubmit={ this._handleSubmit }
-                >
-                <h3 className="login-sub-heading">Login</h3>
-                  <input
-                    className="login-input"
-                    placeholder="Email"
-                    name="email"
-                    required
-                    onInput={ this._handleInputs }
-                  />
-                  <input
-                    className="login-input"
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    required
-                    onInput={ this._handleInputs }
-                    protected="true"
-                  />
-                  <input
-                    className="submit-btn"
-                    id="submit"
-                    type="submit"
-                    value="Submit"
-                    onClick={ this.fadeOut }
-                  />
-                </form>
-              </div>
-            </animated.div>
-          ))}
-        </Transition>
+                <input
+                  className="login-input"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  required
+                  onInput={ this._handleInputs }
+                  protected="true"
+                />
+                <input
+                  className="submit-btn"
+                  id="submit"
+                  type="submit"
+                  value="Submit"
+                  onClick={ this.fadeOut }
+                />
+              </form>
+            </div>
+          </animated.div>
+        ))}
+      </Transition>
     );
   }
 }

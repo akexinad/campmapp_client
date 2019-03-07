@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-
+import { Spring } from 'react-spring/renderprops';
 
 import API from '../api.js';
 import SERVER from '../utils.js';
@@ -96,26 +96,39 @@ export default class Home extends Component {
   render() {
     return (
 
-      <div>
-        <Nav />
-        <div
-          className="home-page"
-          style={{
-            height: '150vh',
-            width: '960px',
-            margin: '0 auto',
-            borderRadius: '20px'
-          }}
-        >
-          <h2 className="home-title">Pick Your Spot!</h2>
-          <GoogleMapReact
-            defaultCenter={ this.props.center }
-            defaultZoom={ this.props.zoom }
-          >
-          { this.renderLocations() }
-          </GoogleMapReact>
-        </div>
-      </div>
+      <Spring
+        from={{
+          opacity: 0,
+        }}
+        to={{
+          opacity: 1,
+        }}
+        config={{
+          duration: 2000
+        }}
+      >
+        { props => (
+          <div style={ props }>
+            <Nav />
+            <div
+              className="home-page"
+              style={{
+                height: '150vh',
+                width: '960px',
+                margin: '0 auto',
+              }}
+            >
+              <h2 className="home-title">Pick Your Spot!</h2>
+              <GoogleMapReact
+                defaultCenter={ this.props.center }
+                defaultZoom={ this.props.zoom }
+              >
+              { this.renderLocations() }
+            </GoogleMapReact>
+          </div>
+          </div>
+        )}
+      </Spring>
 
 
     );

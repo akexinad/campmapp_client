@@ -163,14 +163,23 @@ export default class NewCampSite extends Component {
   render() {
     return (
       <div
-        className="new-page"
+        className="new-campsite-container"
         style={{
-          height: '100vh',
-          width: '100%',
+          height: '120vh',
+          maxWidth: '960px',
+          margin: '0 auto'
         }}
       >
         <Nav />
-        <h2>Pitch A New Tent!</h2>
+        <h2 className="new-campsite-title" >Pitch A New Tent!</h2>
+        <GoogleMapReact
+          defaultCenter={ this.props.center }
+          defaultZoom={ this.props.zoom }
+          onClick={ this._addTinyTent }
+          >
+          { this.renderLocations() }
+          { this.renderNewLocation() }
+        </GoogleMapReact>
         <AddCampSiteForm
           onSubmit={ this.postLocationToServer }
           amenityData={ this.state.amenityData }
@@ -178,20 +187,12 @@ export default class NewCampSite extends Component {
           newName={ this.state.newSiteName }
           newLocation={ this.state.newSitelocation }
         />
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: API.key }}
-          defaultCenter={ this.props.center }
-          defaultZoom={ this.props.zoom }
-          onClick={ this._addTinyTent }
-        >
-        { this.renderLocations() }
-        { this.renderNewLocation() }
-        </GoogleMapReact>
       </div>
     )
   }
 }
 
+// bootstrapURLKeys={{ key: API.key }}
 
 class AddCampSiteForm extends Component {
   constructor() {
@@ -250,9 +251,13 @@ class AddCampSiteForm extends Component {
     for (let i = 0; i < this.props.amenityData.length; i++) {
       children.push(
 
-        <label key={ this.props.amenityData[i].id } >
+        <label
+          className="amenity-label"
+          key={ this.props.amenityData[i].id }
+        >
           { this.props.amenityData[i].name }
           <input
+            className="amenity-checkbox"
             type="checkbox"
             name={ this.props.amenityData[ i ].name }
             onChange={ this._handleCheckbox }
@@ -266,20 +271,25 @@ class AddCampSiteForm extends Component {
 
   render() {
     return (
-      <form onSubmit={ this._handleSubmit } >
+      <form
+        className="new-campsite-form"
+        onSubmit={ this._handleSubmit }
+      >
 
         <div className="form-group">
 
-          <label>Camp Site Name</label>
+          <label className="form-label" >Camp Site Name</label>
           <input
+            className="new-campsite-input"
             type="text"
             name="name"
             value={ this.state.name }
             onChange={this._handleChange}
           />
 
-          <label>Where?</label>
+          <label className="form-label" >Where?</label>
           <input
+            className="new-campsite-input"
             type="text"
             name="location"
             value={ this.state.location }
@@ -287,12 +297,18 @@ class AddCampSiteForm extends Component {
           />
         </div>
 
-        <div>
-          <h3>Amenities Available</h3>
-          { this.renderAmenityChecklist() }
+        <div className="amenity-checklist">
+          <h3 className="new-amenity-title">Amenities Available</h3>
+          <div className="amenity-labels">
+            { this.renderAmenityChecklist() }
+          </div>
         </div>
 
-        <input type="submit" value="Pitch A Tent!" />
+        <input
+          id="new-submit"
+          type="submit"
+          value="Pitch It!"
+        />
 
       </form>
     )

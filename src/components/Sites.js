@@ -7,7 +7,9 @@ export default class Sites extends Component {
   render() {
     return (
       <div>
-        <Link to={ `/details/${ this.props.$dimensionKey }` } >
+        <Link
+          to={ `/details/${ this.props.$dimensionKey }` }
+        >
           <img
             className="tent"
             src="./images/tent-icon.png"
