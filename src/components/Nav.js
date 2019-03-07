@@ -4,10 +4,16 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 
 export default class Nav extends Component {
+
+  logout() {
+    localStorage.clear()
+    this.props.history.push("/");
+  }
+
   render() {
     return (
       <div className="navbar">
-        <Link to="/">
+        <Link to="/home">
           <div className="navbar-links">
             <img
               className="home-icon"

@@ -155,6 +155,7 @@ export default class NewCampSite extends Component {
       })
 
       this.renderNewLocation();
+      this.props.history.push(`/details/${ this.state.newCampSiteId }`)
     })
   }
 

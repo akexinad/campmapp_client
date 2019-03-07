@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const serverURL = 'https://campmapp.herokuapp.com/';
-// const serverURL = 'http://localhost:4444/';
+// const serverURL = 'https://campmapp.herokuapp.com/';
+const serverURL = 'http://localhost:4444/';
 
 const SERVER = {
   user() {
@@ -44,6 +44,19 @@ const SERVER = {
 
   getAmenities() {
     return axios.get(serverURL + 'amenities.json');
+  },
+
+  postAmenities(amenity) {
+    let token = localStorage.getItem("auth-token");
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        "Authorization" : `Bearer ${token}`
+      }
+    }
+
+    return axios.post(serverURL + 'amenities.json', { amenity: amenity }, axiosConfig);
   },
 
   getUsers() {
