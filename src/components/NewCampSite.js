@@ -17,6 +17,7 @@ export default class NewCampSite extends Component {
       campSiteData: {},
       amenityData: {},
       amenityList: [],
+      newCampSiteId: null,
       newSiteName: null,
       newSitelocation: null,
       latitude: [],
@@ -107,10 +108,10 @@ export default class NewCampSite extends Component {
       newLongitude: newLng,
     });
 
-    console.log(this.state.newLatitude, this.state.newLongitude);
   }
 
   renderNewLocation() {
+
     let children = [];
 
     if (this.state.latitude === null) {
@@ -118,24 +119,19 @@ export default class NewCampSite extends Component {
     } else {
       children.push(
         <Sites
-          key="newAddition"
+          key={ this.state.newCampSiteId }
           lat={ this.state.newLatitude }
           lng={ this.state.newLongitude }
-        />
+          />
       )
 
       return children
     }
+
   }
 
 
   postLocationToServer(details) {
-    console.log(details.name);
-    console.log(details.location);
-    console.log(this.state.amenityList);
-    console.log(this.state.newLongitude);
-    console.log(this.state.newLatitude);
-
     const newCampSite = {
       name: details.name,
       location: details.location,
@@ -144,10 +140,26 @@ export default class NewCampSite extends Component {
       cost: null,
     };
 
-    SERVER.postCampSite(newCampSite).then( results => {
+    SERVER.postCampSite(newCampSite)
+    .then( results => {
       console.log(results);
-    })
+    });
 
+    SERVER.getCampSites()
+    .then( results => {
+      // console.log(results.data);
+      // console.log(results.data[results.data.length - 1].id);
+
+      let newId = (results.data[results.data.length - 1].id) + 1;
+
+      this.setState({
+        newCampSiteId: newId,
+      })
+
+      // console.log("NEW ID: ", this.state.newCampSiteId);
+
+      this.renderNewLocation();
+    })
   }
 
 
@@ -182,6 +194,7 @@ export default class NewCampSite extends Component {
     )
   }
 }
+
 
 class AddCampSiteForm extends Component {
   constructor() {

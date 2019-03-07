@@ -13,7 +13,16 @@ const SERVER = {
   },
 
   getCampSites() {
-    return axios.get(serverURL + 'campsites.json');
+    let token = localStorage.getItem("auth-token");
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+        "Authorization" : `Bearer ${token}`
+      }
+    };
+
+    return axios.get(serverURL + 'campsites.json', axiosConfig);
   },
 
   getCampSite(campSiteId) {
