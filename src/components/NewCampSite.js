@@ -147,16 +147,12 @@ export default class NewCampSite extends Component {
 
     SERVER.getCampSites()
     .then( results => {
-      // console.log(results.data);
-      // console.log(results.data[results.data.length - 1].id);
 
       let newId = (results.data[results.data.length - 1].id) + 1;
 
       this.setState({
         newCampSiteId: newId,
       })
-
-      // console.log("NEW ID: ", this.state.newCampSiteId);
 
       this.renderNewLocation();
     })
@@ -173,7 +169,7 @@ export default class NewCampSite extends Component {
         }}
       >
         <Nav />
-        <h2>You can add your own Camp Sites Very Soon!</h2>
+        <h2>Pitch A New Tent!</h2>
         <AddCampSiteForm
           onSubmit={ this.postLocationToServer }
           amenityData={ this.state.amenityData }
