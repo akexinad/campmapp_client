@@ -173,6 +173,7 @@ export default class NewCampSite extends Component {
         <Nav />
         <h2 className="new-campsite-title" >Pitch A New Tent!</h2>
         <GoogleMapReact
+          bootstrapURLKeys={{ key: API.key }}
           defaultCenter={ this.props.center }
           defaultZoom={ this.props.zoom }
           onClick={ this._addTinyTent }
@@ -192,7 +193,6 @@ export default class NewCampSite extends Component {
   }
 }
 
-// bootstrapURLKeys={{ key: API.key }}
 
 class AddCampSiteForm extends Component {
   constructor() {

@@ -120,6 +120,7 @@ export default class Home extends Component {
             >
               <h2 className="home-title">Pick Your Spot!</h2>
               <GoogleMapReact
+                bootstrapURLKeys={{ key: API.key }}
                 defaultCenter={ this.props.center }
                 defaultZoom={ this.props.zoom }
               >
@@ -134,7 +135,3 @@ export default class Home extends Component {
     );
   }
 }
-
-
-
-// bootstrapURLKeys={{ key: API.key }}
