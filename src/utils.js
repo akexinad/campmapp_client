@@ -12,6 +12,10 @@ const SERVER = {
     return serverURL + 'user_token';
   },
 
+
+  asrgerf
+
+
   getCampSites() {
     let token = localStorage.getItem("auth-token");
     let axiosConfig = {
